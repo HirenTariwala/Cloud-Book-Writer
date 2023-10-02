@@ -1,5 +1,5 @@
 export async function getUsers() {
-    const response = await fetch('/users', {
+    const response = await fetch('http://localhost:5000/users', {
         method: 'GET',
     })
     return await response.json()
