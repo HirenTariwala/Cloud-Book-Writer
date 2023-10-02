@@ -1,8 +1,8 @@
 'use client'
 
 import { AppActions, SectionsListType } from "@/components/UI/AddSection/types";
+import { ADD_NEW_SECTION, ADD_SUB_SECTION, DELETE_SECTION, EDIT_SECTION, USER_LOGIN, USER_LOGOUT } from "@/constants/actions";
 import { createContext, Dispatch, useReducer } from "react"
-import { ADD_NEW_SECTION, ADD_SUB_SECTION, DELETE_SECTION, EDIT_SECTION, USER_LOGIN, USER_LOGOUT } from "./constant";
 
 function addSection(data: SectionsListType[], payload: any): SectionsListType[] {
     const { id, parentId, name } = payload || {};
@@ -57,7 +57,7 @@ type AppStateType = {
     sections: SectionsListType[]
     token?: string | null,
     user?: { id: number, email: string, name: string, role?: string, permissions?: [] } | null
-} 
+}
 
 const initialState: AppStateType = {
     sections: [],
@@ -73,7 +73,7 @@ const reducer = (state: any, action: AppActions) => {
 
         case USER_LOGOUT:
             return { ...state, token: null, user: null }
-            
+
         case ADD_NEW_SECTION:
             return { ...state, sections: [...state.sections, { id, name }] }
 
