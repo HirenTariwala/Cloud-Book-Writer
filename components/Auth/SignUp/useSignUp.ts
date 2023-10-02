@@ -3,6 +3,7 @@ import { signUpUser } from "./services";
 import { useRouter } from 'next/navigation'
 import { AppContext } from "@/context/app.context";
 import { UserDetailsType } from "./types";
+import { USER_LOGIN } from "@/constants/actions";
 
 export default function useSignUpHook() {
     const router = useRouter()
@@ -59,7 +60,7 @@ export default function useSignUpHook() {
             }
             const response = await signUpUser(payload)
             if (response?.accessToken?.length > 0) {
-                dispatch({ type: 'USER_LOGIN', payload: { token: response?.accessToken, user: response?.user }})
+                dispatch({ type: USER_LOGIN, payload: { token: response?.accessToken, user: response?.user }})
                 router.push('/add-section')
             } else {
                 setSignupError(response)
