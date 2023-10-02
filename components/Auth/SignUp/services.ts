@@ -1,5 +1,5 @@
 export async function signUpUser(payload: any) {
-    const response = await fetch('http://localhost:5000/register', {
+    const response = await fetch('/register', {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
