@@ -1,9 +1,11 @@
 import {v4 as uuidv4} from 'uuid'
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
+import { useRouter } from 'next/navigation'
 import { ActionTypes } from "./types"
 import { AppContext } from "@/context/app.context"
 
 export default function useAddSectionHook() {
+    const router = useRouter()
     const { state, dispatch } = useContext(AppContext)
 
     const addNewSectionHandler = (actionType: ActionTypes , value: string, parentSectionId?: string) => {
@@ -17,6 +19,13 @@ export default function useAddSectionHook() {
     const deleteSectionHandler = (id: string) => {
         dispatch({ type: 'DELETE_SECTION', payload: { id } })
     }
+
+    useEffect(() => {
+        if (!state?.token) {
+            router.push('/login')
+        }
+    }, [])
+
     return {
         sections: state.sections,
         userDetail: { role: state?.user?.role, permissions: state?.user?.permissions },
