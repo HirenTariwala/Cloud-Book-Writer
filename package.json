@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "json-server-auth --watch db.json --port 5000"
+    "server": "json-server-auth --watch db.json"
   },
   "dependencies": {
     "next": "latest",
