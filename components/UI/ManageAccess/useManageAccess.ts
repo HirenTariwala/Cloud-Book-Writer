@@ -1,5 +1,6 @@
 import { AppContext } from "@/context/app.context"
 import { useContext, useEffect, useState } from "react"
+import { useRouter } from 'next/navigation'
 import { getUsers, updateUserPermission } from "./services"
 
 
@@ -13,6 +14,7 @@ type SelectedCollaboratorType = {
 
 export default function useManageAccessHook() {
     const { state, dispatch } = useContext(AppContext)
+    const router = useRouter()
     const [users, setUsers] = useState<SelectedCollaboratorType[]>([])
     const [selectedCollaborator, setSelectedCollaborator] = useState<SelectedCollaboratorType | null>(null)
     const [permissions, setPermissions] = useState<string[]>([])
@@ -23,6 +25,12 @@ export default function useManageAccessHook() {
         const collaboratorUsers = response.filter((e: SelectedCollaboratorType) => e.role !== 'author')
         setUsers(collaboratorUsers)
     }
+
+    useEffect(() => {
+        if (!state?.token) {
+            router.push('/login')
+        }
+    }, [])
 
     useEffect(() => {
         fetchUsers()
