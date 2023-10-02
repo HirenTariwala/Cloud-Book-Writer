@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation"
 import { loginUser } from "./services"
 import { UserLoginDetailsType } from "./types"
 import { AppContext } from "@/context/app.context"
+import { USER_LOGIN } from "@/constants/actions"
 
 export default function useLoginHook() {
     const router = useRouter()
@@ -46,7 +47,7 @@ export default function useLoginHook() {
         try {
             const response = await loginUser(loginDetails)
             if (response?.accessToken?.length > 0) {
-                dispatch({ type: 'USER_LOGIN', payload: { token: response?.accessToken, user: response?.user }})
+                dispatch({ type: USER_LOGIN, payload: { token: response?.accessToken, user: response?.user }})
                 router.push('/add-section')
             } else {
                 setLoginError(response)
