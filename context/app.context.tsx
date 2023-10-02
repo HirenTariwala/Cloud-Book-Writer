@@ -2,6 +2,7 @@
 
 import { AppActions, SectionsListType } from "@/components/UI/AddSection/types";
 import { createContext, Dispatch, useReducer } from "react"
+import { ADD_NEW_SECTION, ADD_SUB_SECTION, DELETE_SECTION, EDIT_SECTION, USER_LOGIN, USER_LOGOUT } from "./constant";
 
 function addSection(data: SectionsListType[], payload: any): SectionsListType[] {
     const { id, parentId, name } = payload || {};
@@ -67,22 +68,22 @@ const initialState: AppStateType = {
 const reducer = (state: any, action: AppActions) => {
     const { id, name, token, user } = action.payload || {}
     switch (action.type) {
-        case 'USER_LOGIN':
+        case USER_LOGIN:
             return { ...state, user, token }
 
-        case 'USER_LOGOUT':
+        case USER_LOGOUT:
             return { ...state, token: null, user: null }
             
-        case "ADD_NEW_SECTION":
+        case ADD_NEW_SECTION:
             return { ...state, sections: [...state.sections, { id, name }] }
 
-        case "ADD_SUB_SECTION":
+        case ADD_SUB_SECTION:
             return { ...state, sections: addSection(state.sections, action.payload) }
 
-        case "EDIT_SECTION":
+        case EDIT_SECTION:
             return { ...state, sections: editSection(state.sections, action.payload) }
 
-        case "DELETE_SECTION":
+        case DELETE_SECTION:
             return { ...state, sections: deleteSection(state.sections, action.payload) }
         default:
             return state
