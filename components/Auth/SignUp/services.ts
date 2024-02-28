@@ -1,5 +1,5 @@
 export async function signUpUser(payload: any) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}register`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
     method: "POST",
     body: JSON.stringify(payload),
     headers: {

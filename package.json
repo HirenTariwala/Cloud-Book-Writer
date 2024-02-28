@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "server": "json-server-auth --watch db.json --port 5000"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "latest",
@@ -23,8 +22,6 @@
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "json-server": "^0.17.3",
-    "json-server-auth": "^2.1.0",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
