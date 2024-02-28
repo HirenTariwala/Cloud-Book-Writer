@@ -2,15 +2,21 @@
 
 import Input from "@/components/common/Input/Input";
 import useLogin from "./useLogin";
+import Spinner from "@/components/common/Spinner/Spinner";
 
 const Login = () => {
   const {
     loginDetails,
     formErrors,
     loginError,
+    isLoading,
     onChangeHandler,
     onSubmitHandler,
   } = useLogin();
+
+  if (isLoading) {
+    return <Spinner size={35} />;
+  }
   return (
     <form
       onSubmit={onSubmitHandler}

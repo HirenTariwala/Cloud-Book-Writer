@@ -9,6 +9,7 @@ export default function useLoginHook() {
   const router = useRouter();
   const { dispatch } = useContext(AppContext);
   const [loginError, setLoginError] = useState<string>("");
+  const [isLoading, setIsloading] = useState(false);
   const [loginDetails, setLoginDetails] = useState<UserLoginDetailsType>({
     email: "",
     password: "",
@@ -38,6 +39,7 @@ export default function useLoginHook() {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsloading(true);
     const { email, password } = loginDetails;
     setFormErrors({
       email:
@@ -52,7 +54,6 @@ export default function useLoginHook() {
       return;
     try {
       const response = await loginUser(loginDetails);
-      console.log("response", response?.user);
       if (response?.accessToken?.length > 0) {
         dispatch({
           type: USER_LOGIN,
@@ -60,9 +61,11 @@ export default function useLoginHook() {
         });
         router.push("/add-section");
       } else {
+        setIsloading(false);
         setLoginError(response);
       }
     } catch (err) {
+      setIsloading(false);
       setLoginError("Something went wrong!");
     }
   };
@@ -71,6 +74,7 @@ export default function useLoginHook() {
     loginDetails,
     formErrors,
     loginError,
+    isLoading,
     onChangeHandler,
     onSubmitHandler,
   };

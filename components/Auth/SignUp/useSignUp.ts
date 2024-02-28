@@ -9,6 +9,7 @@ export default function useSignUpHook() {
   const router = useRouter();
   const { dispatch } = useContext(AppContext);
   const [signupError, setSignupError] = useState<string>("");
+  const [isLoading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetailsType>({
     name: "",
     email: "",
@@ -58,6 +59,7 @@ export default function useSignUpHook() {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const { name, email, password } = userDetails;
     const isValidForm = validateUserDetails();
     if (!isValidForm) return;
@@ -66,7 +68,8 @@ export default function useSignUpHook() {
         name,
         email,
         password,
-        role: "author",
+        role: "collaborator",
+        permissions: ["edit"],
       };
       const response = await signUpUser(payload);
       if (response?.accessToken?.length > 0) {
@@ -76,9 +79,11 @@ export default function useSignUpHook() {
         });
         router.push("/add-section");
       } else {
+        setLoading(false);
         setSignupError(response);
       }
     } catch (err) {
+      setLoading(false);
       setSignupError("Something went wrong!");
     }
   };
@@ -95,6 +100,7 @@ export default function useSignUpHook() {
     formErrors,
     userDetails,
     signupError,
+    isLoading,
     onSubmitHandler,
     onChangeUserDetails,
   };
