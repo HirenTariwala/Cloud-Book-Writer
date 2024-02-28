@@ -80,7 +80,12 @@ export default function useSignUpHook() {
         router.push("/add-section");
       } else {
         setLoading(false);
-        setSignupError(response);
+        console.log("response", response);
+        if (response === 'You must add a "users" collection to your db') {
+          router.push("/add-section");
+        } else {
+          setSignupError(response);
+        }
       }
     } catch (err) {
       setLoading(false);
