@@ -38,12 +38,6 @@ export default function useManageAccessHook() {
     fetchUsers();
   }, []);
 
-  useEffect(() => {
-    if (permissionUpdated) {
-      fetchUsers();
-    }
-  }, [permissionUpdated]);
-
   const onChangeHandler = (e: React.FormEvent<HTMLSelectElement>) => {
     setPermissionUpdated(false);
     const collaborator: SelectedCollaboratorType[] = users.filter(
@@ -62,6 +56,11 @@ export default function useManageAccessHook() {
       });
       if (response?.id === selectedCollaborator?.id) {
         setPermissionUpdated(true);
+        fetchUsers();
+        setSelectedCollaborator(response);
+        setTimeout(() => {
+          setPermissionUpdated(false);
+        }, 2000);
       }
     }
   };
@@ -76,12 +75,25 @@ export default function useManageAccessHook() {
     }
   };
 
+  const checkPermissionsChanged = () => {
+    if (!selectedCollaborator) return false;
+    if (selectedCollaborator?.permissions?.length !== permissions?.length) {
+      return true;
+    } else {
+      const isPermissionsChanged = permissions.some(
+        (e) => !selectedCollaborator?.permissions?.includes(e)
+      );
+      return isPermissionsChanged;
+    }
+  };
+
   return {
     state,
     users,
     selectedCollaborator,
     permissions,
     permissionUpdated,
+    enableSave: checkPermissionsChanged(),
     updatePermissions,
     permissionCheckHandler,
     onChangeHandler,

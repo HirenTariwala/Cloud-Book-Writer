@@ -13,8 +13,6 @@ const AddSection = () => {
     deleteSectionHandler,
   } = useAddSectionHook();
 
-  console.log({ userDetail });
-
   return (
     <>
       {(userDetail?.role === "author" ||
