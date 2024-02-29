@@ -79,7 +79,7 @@ const ManageAccess = () => {
             type="button"
             disabled={!enableSave}
             onClick={updatePermissions}
-            className="p-2 h-10"
+            className="p-2 h-10 text-white"
             style={
               !enableSave
                 ? { backgroundColor: "#A9A9A9" }

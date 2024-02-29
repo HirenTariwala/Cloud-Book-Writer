@@ -62,7 +62,7 @@ const SignUp = () => {
       {signupError?.length > 0 && (
         <span className="text-red-600">{signupError}</span>
       )}
-      <button type="submit" className="bg-[#D4715C] p-2">
+      <button type="submit" className="bg-[#D4715C] text-white p-2">
         Sign up
       </button>
     </form>

@@ -44,7 +44,7 @@ const Login = () => {
       {loginError?.length > 0 && (
         <span className="text-red-600">{loginError}</span>
       )}
-      <button type="submit" className="bg-[#D4715C] p-2">
+      <button type="submit" className="bg-[#D4715C] text-white p-2">
         Login
       </button>
     </form>
